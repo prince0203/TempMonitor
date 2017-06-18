@@ -1,4 +1,4 @@
-CREATE TABLE `records` (
+CREATE TABLE IF NOT EXISTS `records` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` smallint(4) NOT NULL,
   `month` tinyint(2) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `records` (
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `hours` (
+CREATE TABLE IF NOT EXISTS `hours` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` smallint(4) NOT NULL,
   `month` tinyint(2) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `hours` (
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `days` (
+CREATE TABLE IF NOT EXISTS `days` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` smallint(4) NOT NULL,
   `month` tinyint(2) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `days` (
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `months` (
+CREATE TABLE IF NOT EXISTS `months` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` smallint(4) NOT NULL,
   `month` tinyint(2) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `months` (
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE `years` (
+CREATE TABLE IF NOT EXISTS `years` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` smallint(4) NOT NULL,
   `temp` float NOT NULL,
