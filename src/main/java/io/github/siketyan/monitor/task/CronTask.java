@@ -5,13 +5,10 @@ import io.github.siketyan.monitor.object.DataSet;
 import io.github.siketyan.monitor.util.ISensor;
 import io.github.siketyan.monitor.util.Logger;
 import io.github.siketyan.monitor.util.SQLManager;
-import twitter4j.StatusUpdate;
-import twitter4j.TwitterException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -71,35 +68,10 @@ public class CronTask implements Runnable {
                     + data.getHumidity() + ", "
                     + data.getPressure()
             );
-            
-            /*
-                Twitter (once of a hour)
-             */
-    
+
             cal.setTime(now);
             if (cal.get(Calendar.MINUTE) != 0) return;
-            
-            try {
-                TempMonitor.getTwitter().updateStatus(
-                    new StatusUpdate(
-                        TempMonitor.getConfig().getProperty("Twitter_Content")
-                                   .replaceAll("\\{\\{TEMP}}", String.valueOf(data.getTemperature()).substring(0, 13))
-                                   .replaceAll("\\{\\{HUM}}", String.valueOf(data.getHumidity()).substring(0, 13))
-                                   .replaceAll("\\{\\{PRES}}", String.valueOf(data.getPressure()).substring(0, 13))
-                                   .replaceAll(
-                                        "\\{\\{DATE}}",
-                                        new SimpleDateFormat(
-                                            TempMonitor.getConfig().getProperty("Twitter_DateFormat")
-                                        ).format(now)
-                                    )
-                    )
-                );
-                Logger.success("Tweeted.");
-            } catch (TwitterException e) {
-                Logger.error("Failed to tweet.");
-                e.printStackTrace();
-            }
-            
+
             /*
                 Previous Hour
              */

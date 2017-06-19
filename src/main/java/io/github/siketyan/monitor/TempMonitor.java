@@ -12,8 +12,6 @@ import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.log.Log;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -27,8 +25,7 @@ public class TempMonitor {
     private static Properties conf;
     private static ISensor sensor;
     private static SQLManager sql;
-    private static Twitter twitter;
-    
+
     public static void main(String[] args) {
         try {
             try (InputStream is = new FileInputStream(CONFIG_FILE);
@@ -64,10 +61,7 @@ public class TempMonitor {
             e.printStackTrace();
             return;
         }
-        
-        twitter = TwitterFactory.getSingleton();
-        Logger.success("Initialized Twitter.");
-    
+
         Scheduler sc = new Scheduler();
         sc.schedule("*/10 * * * *", new CronTask());
         sc.start();
@@ -119,9 +113,5 @@ public class TempMonitor {
     
     public static SQLManager getSQL() {
         return sql;
-    }
-    
-    public static Twitter getTwitter() {
-        return twitter;
     }
 }
